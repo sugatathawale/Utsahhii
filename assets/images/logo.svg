@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Utsaahi Yoga and Wellness">
+  <circle cx="100" cy="100" r="100" fill="#084138"/>
+  <!-- lotus -->
+  <g fill="none" stroke="#D4C4A0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 42c-6 10-10 22-10 34 0-12-4-24-10-34 8 2 14 2 20 0z"/>
+    <path d="M78 50c2 12 8 24 16 32-10-4-20-12-26-24 4 0 7-3 10-8z"/>
+    <path d="M122 50c-2 12-8 24-16 32 10-4 20-12 26-24-4 0-7-3-10-8z"/>
+    <path d="M100 58c-8 8-14 18-16 28 6-2 12-2 16-2s10 0 16 2c-2-10-8-20-16-28z"/>
+    <path d="M68 68c6 10 14 18 24 22-14 0-26-6-34-16 4-2 7-4 10-6z"/>
+    <path d="M132 68c-6 10-14 18-24 22 14 0 26-6 34-16-4-2-7-4-10-6z"/>
+  </g>
+  <text x="100" y="118" text-anchor="middle" fill="#EDE4D4" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-style="italic">Utsaahi</text>
+  <text x="100" y="138" text-anchor="middle" fill="#C9B896" font-family="Helvetica, Arial, sans-serif" font-size="7.5" letter-spacing="2.8">YOGA AND WELLNESS</text>
+</svg>
