@@ -15,8 +15,8 @@
   --white: #fafbfa;
   --line: rgba(8, 65, 56, 0.12);
 
-  --font-display: "Cormorant Garamond", "Times New Roman", serif;
-  --font-body: "Outfit", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Noto Sans Devanagari", "Times New Roman", serif;
+  --font-body: "Outfit", "Noto Sans Devanagari", system-ui, sans-serif;
 
   --space: clamp(1rem, 4vw, 2rem);
   --max: 1120px;
@@ -433,6 +433,11 @@ section {
   font-size: 1.05rem;
 }
 
+.section-lead.hi {
+  color: var(--forest);
+  font-weight: 400;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -838,67 +843,272 @@ section {
   color: var(--forest-deep);
 }
 
-/* ——— Gallery ——— */
+/* ——— Gallery (bento) ——— */
 .gallery {
-  background: var(--sage-wash);
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(201, 184, 150, 0.18), transparent 45%),
+    var(--sage-wash);
 }
 
-.gallery-grid {
+.gallery-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 0.95rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage);
+  border: 1px solid var(--line);
+  background: transparent;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.filter-btn:hover,
+.filter-btn.is-active {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--ivory);
+}
+
+.bento {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 120px;
   gap: 0.55rem;
-  margin-top: 2.25rem;
 }
 
 @media (min-width: 700px) {
-  .gallery-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+  .bento {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 165px;
+    gap: 0.85rem;
   }
 }
 
-.gallery-item {
+@media (min-width: 1000px) {
+  .bento {
+    grid-auto-rows: 190px;
+  }
+}
+
+.bento-item {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
   cursor: zoom-in;
+  padding: 0;
+  border: 0;
+  background: var(--forest-deep);
+  grid-column: span 1;
+  grid-row: span 1;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
 }
 
-.gallery-item:nth-child(1),
-.gallery-item:nth-child(5) {
-  aspect-ratio: 3 / 4;
+.bento-item.is-hidden {
+  display: none;
 }
 
-@media (min-width: 700px) {
-  .gallery-item:nth-child(1) {
-    grid-row: span 2;
-    aspect-ratio: auto;
-    min-height: 100%;
-  }
+.bento-hero {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 
-.gallery-item img {
+.bento-tall {
+  grid-row: span 2;
+}
+
+.bento-wide {
+  grid-column: span 2;
+}
+
+.bento-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s var(--ease);
+  transition: transform 0.8s var(--ease), filter 0.5s;
+  filter: saturate(0.92) contrast(1.02);
 }
 
-.gallery-item:hover img {
-  transform: scale(1.05);
+.bento-item:hover img,
+.bento-item:focus-visible img {
+  transform: scale(1.06);
+  filter: saturate(1.05) contrast(1.05);
 }
 
-.gallery-item::after {
+.bento-item::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(20, 61, 46, 0.35));
-  opacity: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(5, 46, 39, 0.78));
+  opacity: 0.85;
   transition: opacity 0.35s;
 }
 
-.gallery-item:hover::after {
+.bento-item:hover::after {
   opacity: 1;
+}
+
+.bento-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  color: var(--ivory);
+  transform: translateY(6px);
+  opacity: 0.92;
+  transition: transform 0.35s var(--ease), opacity 0.35s;
+}
+
+.bento-item:hover .bento-caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.bento-caption em {
+  display: block;
+  font-style: normal;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+
+.bento-caption strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+/* ——— Booking ——— */
+.booking {
+  background: var(--white);
+  border-top: 1px solid var(--line);
+}
+
+.booking-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 860px) {
+  .booking-grid {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+.booking-perks {
+  list-style: none;
+  margin-top: 1.75rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.booking-perks li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.booking-perks li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.book-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.1rem;
+  padding: clamp(1.35rem, 4vw, 2rem);
+  background: var(--sage-mist);
+  border-left: 3px solid var(--forest);
+}
+
+.book-form label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.book-form label.full {
+  grid-column: 1 / -1;
+}
+
+.book-form span {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.book-form input,
+.book-form select,
+.book-form textarea {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid rgba(8, 65, 56, 0.15);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.book-form input:focus,
+.book-form select:focus,
+.book-form textarea:focus {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 3px rgba(8, 65, 56, 0.1);
+}
+
+.book-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.book-submit {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+.book-note {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--sage);
+}
+
+@media (max-width: 560px) {
+  .book-form {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Lightbox */

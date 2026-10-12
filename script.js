@@ -10,6 +10,7 @@
   const reelFrame = document.getElementById("reelFrame");
   const reelOpenIg = document.getElementById("reelOpenIg");
   const reelModalClose = document.getElementById("reelModalClose");
+  const bookForm = document.getElementById("bookForm");
 
   if (year) year.textContent = String(new Date().getFullYear());
 
@@ -66,7 +67,7 @@
     }
   };
 
-  document.querySelectorAll(".gallery-item").forEach((btn) => {
+  document.querySelectorAll(".bento-item").forEach((btn) => {
     btn.addEventListener("click", () => {
       const src = btn.getAttribute("data-src");
       const img = btn.querySelector("img");
@@ -79,10 +80,25 @@
     if (e.target === lightbox) closeLightbox();
   });
 
+  /* Gallery filters */
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const bentoItems = document.querySelectorAll(".bento-item");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.getAttribute("data-filter") || "all";
+      filterBtns.forEach((b) => b.classList.toggle("is-active", b === btn));
+      bentoItems.forEach((item) => {
+        const tag = item.getAttribute("data-filter");
+        const show = filter === "all" || tag === filter;
+        item.classList.toggle("is-hidden", !show);
+      });
+    });
+  });
+
   const openReel = (id) => {
     const url = `https://www.instagram.com/reel/${id}/`;
-    const embed = `${url}embed`;
-    reelFrame.src = embed;
+    reelFrame.src = `${url}embed`;
     reelOpenIg.href = url;
     reelModal.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -106,6 +122,32 @@
   reelModalClose?.addEventListener("click", closeReel);
   reelModal?.addEventListener("click", (e) => {
     if (e.target === reelModal) closeReel();
+  });
+
+  /* Booking → WhatsApp */
+  bookForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(bookForm);
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const classType = String(data.get("classType") || "").trim();
+    const time = String(data.get("time") || "").trim();
+    const message = String(data.get("message") || "").trim();
+
+    const lines = [
+      "Namaste Utsaahi 🙏",
+      "I would like to book a yoga class.",
+      "",
+      `Name / नाम: ${name}`,
+      `Phone / फ़ोन: ${phone}`,
+      `Class / कक्षा: ${classType}`,
+      `Time / समय: ${time}`,
+    ];
+    if (message) lines.push(`Message / संदेश: ${message}`);
+    lines.push("", "— Sent from utsaahi website");
+
+    const text = encodeURIComponent(lines.join("\n"));
+    window.open(`https://wa.me/919423682125?text=${text}`, "_blank", "noopener");
   });
 
   document.addEventListener("keydown", (e) => {
