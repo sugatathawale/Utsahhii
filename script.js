@@ -138,13 +138,13 @@
       "Namaste Utsaahi 🙏",
       "I would like to book a yoga class.",
       "",
-      `Name / नाम: ${name}`,
-      `Phone / फ़ोन: ${phone}`,
-      `Class / कक्षा: ${classType}`,
-      `Time / समय: ${time}`,
+      `Name: ${name}`,
+      `Phone: ${phone}`,
+      `Class: ${classType}`,
+      `Time: ${time}`,
     ];
-    if (message) lines.push(`Message / संदेश: ${message}`);
-    lines.push("", "— Sent from utsaahi website");
+    if (message) lines.push(`Message: ${message}`);
+    lines.push("", "— Sent from Utsaahi website");
 
     const text = encodeURIComponent(lines.join("\n"));
     window.open(`https://wa.me/919423682125?text=${text}`, "_blank", "noopener");
